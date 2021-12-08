@@ -1,0 +1,15 @@
+{
+ "package-id" : "johnmoehrke.SlicingSlicedExtension",
+ "title" : "Example of slicing",
+ "canonical" : "http://johnmoehrke.github.io/SlicingSlicedExtension",
+ "introduction" : "## blah blah",
+ "category" : "EHR Access",
+ "list" : [{
+  "version" : "current",
+  "desc" : "Continuous Integration Build (latest in version control)",
+  "path" : "http://build.fhir.org/ig/JohnMoehrke/SlicingSlicedExtension/branches/main/index.html",
+  "status" : "ci-build",
+  "current" : true
+ }
+ ]
+}
