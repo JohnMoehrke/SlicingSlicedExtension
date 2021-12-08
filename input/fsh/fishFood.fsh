@@ -23,7 +23,7 @@ Description:    """
 * agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
 * agent[user].who 1..1 
 * agent[user].extension[otherId] ^slicing.discriminator.type = #pattern
-* agent[user].extension[otherId] ^slicing.discriminator.path = "(value as Reference).identifier.type"
+* agent[user].extension[otherId] ^slicing.discriminator.path = "$this.value.ofType(Reference).identifier.type"
 * agent[user].extension[otherId] ^slicing.rules = #open
 * agent[user].extension[otherId] contains 
 	npi 0..1 and
