@@ -2,9 +2,9 @@
 # │  The properties below are used to create the ImplementationGuide resource. For a list of       │
 # │  supported properties, see: https://fshschool.org/docs/sushi/configuration/                    │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-id: fhir.slicingslicedextension
-canonical: http://example.org/slicingslicedextension
-name: slicingSlicedExtension
+id: johnmoehrke.slicingslicedextension
+canonical: http://johnmoehrke.github.io/SlicingSlicedExtension
+name: SlicingSlicedExtension
 status: draft
 version: 0.1.0
 fhirVersion: 4.0.1
