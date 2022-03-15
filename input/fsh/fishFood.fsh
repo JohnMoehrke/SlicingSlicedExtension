@@ -5,64 +5,39 @@ Extension: OtherId
 Title: "AuditEvent.agent other identifiers"
 Description: "Carries other identifiers that are known for an agent."
 * value[x] only Reference
+* valueReference 1..1
 
-
-Profile: FirstSliceProfile
+Profile: ThirdSliceProfile
 Parent: AuditEvent
 Title: "Profile defines one slice on .agent for user"
 Description: """
 Simple profile to set the stage
 """
-* agent.extension contains OtherId named otherId 0..* MS
+* agent.extension contains OtherId named extOtherId 0..* MS
 * agent ^slicing.discriminator.type = #pattern
 * agent ^slicing.discriminator.path = "type"
 * agent ^slicing.rules = #open
 * agent contains 
-    user 1..
+    user 1.. and
+    userorg 0..
 * agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
 * agent[user].who 1..1 
 
-
-
-
-
-Profile:        SecondSliceProfile
-Parent:         FirstSliceProfile
-Title:          "Profile with slices of extension in a slice"
-Description:    """
-based on FirstSliceProfile where [user] is defined
-- slices .agent extension otherId
-"""
-* agent[user].extension[otherId] ^slicing.discriminator.type = #pattern
-* agent[user].extension[otherId] ^slicing.discriminator.path = "$this.value.ofType(Reference).identifier.type"
-* agent[user].extension[otherId] ^slicing.rules = #open
-* agent[user].extension[otherId] contains 
+* agent[user].extension[extOtherId] ^slicing.discriminator.type = #pattern
+* agent[user].extension[extOtherId] ^slicing.discriminator.path = "$this.value.ofType(Reference).identifier.type"
+* agent[user].extension[extOtherId] ^slicing.rules = #open
+* agent[user].extension[extOtherId] contains 
 	npi 0..1 and
 	provider-id 0..1
-* agent[user].extension[otherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[otherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-
-
-
-Profile: ThirdSliceProfile
-Parent: SecondSliceProfile
-Title: "Profile adds more slices to user"
-Description: """
-Where SecondSliceProfile defined a [user] profile on .agent
-This ThirdSliceProfile adds another [userorg] profile on .agent
-Results in IG build error complaining about the slicing being different
-"""
-* agent ^slicing.discriminator.type = #pattern
-* agent ^slicing.discriminator.path = "type"
-* agent ^slicing.rules = #open
-* agent contains 
-    userorg 1..
+* agent[user].extension[extOtherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[extOtherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who 1..1
 
 
+
 Instance: ex-SecondSliceProfile
-InstanceOf: SecondSliceProfile
+InstanceOf: ThirdSliceProfile
 Title: "Audit Example of second profile to show the build validation error"
 Description: """
 Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)
@@ -80,10 +55,10 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
-* agent[user].extension[otherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[otherId][npi].valueReference.identifier.value = "1234567@myNPIregistry.example.org"
-* agent[user].extension[otherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent[user].extension[otherId][provider-id].valueReference.identifier.value = "JohnD"
+* agent[user].extension[extOtherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[extOtherId][npi].valueReference.identifier.value = "1234567@myNPIregistry.example.org"
+* agent[user].extension[extOtherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[extOtherId][provider-id].valueReference.identifier.value = "JohnD"
 
 
 Instance: ex-ThirdSliceProfile
