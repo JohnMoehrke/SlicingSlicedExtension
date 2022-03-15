@@ -1,5 +1,7 @@
 # test-SlicingSlicedExtension
 
+[ci-build](http://build.fhir.org/ig/JohnMoehrke/SlicingSlicedExtension/branches/main/index.html)
+
 This creates a profile of [AuditEvent that slices .agent, adds otherId extension, and slices otherId](StructureDefinition-SecondProfile.html) 
 
 Example causes validation to fail. 
