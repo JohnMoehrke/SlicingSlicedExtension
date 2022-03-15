@@ -1,0 +1,78 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "johnmoehrke.slicingslicedextension",
+  "url": "http://johnmoehrke.github.io/SlicingSlicedExtension/ImplementationGuide/johnmoehrke.slicingslicedextension",
+  "version": "0.1.0",
+  "name": "SlicingSlicedExtension",
+  "status": "draft",
+  "packageId": "johnmoehrke.slicingslicedextension",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "definition": {
+    "resource": [
+      {
+        "reference": {
+          "reference": "StructureDefinition/ThirdSliceProfile"
+        },
+        "name": "Profile defines one slice on .agent for user",
+        "description": "Simple profile to set the stage",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/OtherId"
+        },
+        "name": "AuditEvent.agent other identifiers",
+        "description": "Carries other identifiers that are known for an agent.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "AuditEvent/ex-SecondSliceProfile"
+        },
+        "name": "Audit Example of second profile to show the build validation error",
+        "description": "Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)",
+        "exampleCanonical": "http://johnmoehrke.github.io/SlicingSlicedExtension/StructureDefinition/ThirdSliceProfile"
+      },
+      {
+        "reference": {
+          "reference": "AuditEvent/ex-ThirdSliceProfile"
+        },
+        "name": "Audit Example of second profile to show the build validation error",
+        "description": "Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)",
+        "exampleCanonical": "http://johnmoehrke.github.io/SlicingSlicedExtension/StructureDefinition/ThirdSliceProfile"
+      },
+      {
+        "reference": {
+          "reference": "Patient/ex-patient"
+        },
+        "name": "Dummy Patient example",
+        "description": "Dummy patient example for completeness sake. No actual use of this resource other than an example target",
+        "exampleBoolean": true
+      }
+    ],
+    "page": {
+      "nameUrl": "toc.html",
+      "title": "Table of Contents",
+      "generation": "html",
+      "page": [
+        {
+          "nameUrl": "index.html",
+          "title": "Home",
+          "generation": "markdown"
+        }
+      ]
+    },
+    "parameter": [
+      {
+        "code": "copyrightyear",
+        "value": "2021+"
+      },
+      {
+        "code": "releaselabel",
+        "value": "ci-build"
+      }
+    ]
+  }
+}
