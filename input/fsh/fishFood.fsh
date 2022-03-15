@@ -23,7 +23,7 @@ Simple profile to set the stage
 * agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
 * agent[user].who 1..1 
 
-* agent[user].extension[extOtherId] ^slicing.discriminator.type = #pattern
+* agent[user].extension[extOtherId] ^slicing.discriminator.type = #value
 * agent[user].extension[extOtherId] ^slicing.discriminator.path = "$this.value.ofType(Reference).identifier.type"
 * agent[user].extension[extOtherId] ^slicing.rules = #open
 * agent[user].extension[extOtherId] contains 
