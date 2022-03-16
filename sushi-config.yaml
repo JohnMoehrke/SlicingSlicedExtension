@@ -10,6 +10,7 @@ version: 0.1.0
 fhirVersion: 4.0.1
 copyrightYear: 2021+
 releaseLabel: ci-build
+jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#804'
 
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
 # │  To use a provided input/includes/menu.xml file, delete the "menu" property below.             │
