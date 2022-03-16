@@ -6,7 +6,7 @@ id: johnmoehrke.slicingslicedextension
 canonical: http://johnmoehrke.github.io/SlicingSlicedExtension
 name: SlicingSlicedExtension
 status: draft
-version: 0.1.0-ci
+version: 0.1.0-current
 fhirVersion: 4.0.1
 copyrightYear: 2021+
 releaseLabel: ci-build
