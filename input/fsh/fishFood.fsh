@@ -4,8 +4,8 @@
 Extension: OtherId
 Title: "AuditEvent.agent other identifiers"
 Description: "Carries other identifiers that are known for an agent."
-* value[x] only Reference
-* valueReference 1..1
+* value[x] only Identifier
+* valueIdentifier 1..1
 
 Profile: ThirdSliceProfile
 Parent: AuditEvent
@@ -23,14 +23,14 @@ Simple profile to set the stage
 * agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
 * agent[user].who 1..1 
 
-* agent[user].extension[extOtherId] ^slicing.discriminator.type = #value
-* agent[user].extension[extOtherId] ^slicing.discriminator.path = "$this.value.ofType(Reference).identifier.type"
-* agent[user].extension[extOtherId] ^slicing.rules = #open
-* agent[user].extension[extOtherId] contains 
+* agent.extension[extOtherId] ^slicing.discriminator.type = #value
+* agent.extension[extOtherId] ^slicing.discriminator.path = "type"
+* agent.extension[extOtherId] ^slicing.rules = #open
+* agent.extension[extOtherId] contains 
 	npi 0..1 and
 	provider-id 0..1
-* agent[user].extension[extOtherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[extOtherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent.extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent.extension[extOtherId][provider-id].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who 1..1
 
@@ -55,10 +55,10 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
-* agent[user].extension[extOtherId][npi].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[extOtherId][npi].valueReference.identifier.value = "1234567@myNPIregistry.example.org"
-* agent[user].extension[extOtherId][provider-id].valueReference.identifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent[user].extension[extOtherId][provider-id].valueReference.identifier.value = "JohnD"
+* agent[user].extension[extOtherId][+].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[extOtherId][=].valueIdentifier.value = "1234567@myNPIregistry.example.org"
+* agent[user].extension[extOtherId][+].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[extOtherId][=].valueIdentifier.value = "JohnD"
 
 
 Instance: ex-ThirdSliceProfile

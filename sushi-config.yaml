@@ -10,7 +10,7 @@ version: 0.1.1-current
 fhirVersion: 4.0.1
 copyrightYear: 2022+
 releaseLabel: ci-build
-jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#804'
+jurisdiction: urn:iso:std:iso:3166#CA
 license: CC-BY-SA-4.0
 description: "Showing a slicing of extension in a slice problem."
 title: "Slicing sliced extension"
@@ -21,22 +21,16 @@ publisher:
   
 parameters:  # see https://confluence.hl7.org/display/FHIR/Implementation+Guide+Parameters
   path-resource:
-    - input/resources
     - fsh-generated/resources
-    - input/examples
-#  path-pages:
-#    - input/pagecontent
-#    - fsh-generated/includes
   show-inherited-invariants: 'false'
   usage-stats-opt-out: 'false'
-  logging: progress
   shownav: 'true'
-  active-tables: 'false'
   apply-contact: 'true'
   apply-jurisdiction: 'true'
   apply-publisher: 'true'
   apply-version: 'true'
-
+  propagate-status: 'true'
+  
 pages:
 # itemize here each narrative page. Include assigned section numbers when appropriate
   index.md:

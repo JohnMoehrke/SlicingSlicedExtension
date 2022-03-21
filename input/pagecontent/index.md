@@ -1,6 +1,6 @@
 # testBundle
 
-This creates a profile of [AuditEvent](StructureDefinition-SecondSliceProfile.html) that slices .agent, adds otherId, and slices otherId. 
+This creates a profile of [AuditEvent](StructureDefinition-ThirdSliceProfile.html) that slices .agent, adds otherId, and slices otherId. 
 
 Example causes validation to fail. 
 
