@@ -2,7 +2,11 @@
 
 [ci-build](http://build.fhir.org/ig/JohnMoehrke/SlicingSlicedExtension/branches/main/index.html)
 
-This creates a profile of [AuditEvent that slices .agent, adds otherId extension, and slices otherId](StructureDefinition-SecondProfile.html) 
+This creates a profile of [AuditEvent that slices .agent, adds extOtherId extension, and slices extOtherId](StructureDefinition-ThirdProfile.html) 
+
+1. I need to slice the AuditEvent.agent as there are multiple kinds of agent the profile is defining, so want to identify a slice for the (user) agent.
+2. In that slice for describing the user, I have more identifiers to record than the AuditEvent.agent supports. so I add an extension (extOtherIds)
+3. In that extension that allows me to record more identifiers, I have a some flavors of identifier that I also want to define (npi, and prn)
 
 Example causes validation to fail. 
 
