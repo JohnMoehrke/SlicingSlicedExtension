@@ -14,6 +14,15 @@ Description: """
 Simple profile to set the stage
 """
 * agent.extension contains OtherId named extOtherId 0..* MS
+* agent.extension[extOtherId] ^slicing.discriminator.type = #pattern
+* agent.extension[extOtherId] ^slicing.discriminator.path = "value.type"
+* agent.extension[extOtherId] ^slicing.rules = #open
+* agent.extension[extOtherId] contains 
+	npi 0..1 and
+	prn 0..1
+* agent.extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent.extension[extOtherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+
 * agent ^slicing.discriminator.type = #pattern
 * agent ^slicing.discriminator.path = "type"
 * agent ^slicing.rules = #open
@@ -23,22 +32,14 @@ Simple profile to set the stage
 * agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
 * agent[user].who 1..1 
 
-* agent.extension[extOtherId] ^slicing.discriminator.type = #value
-* agent.extension[extOtherId] ^slicing.discriminator.path = "type"
-* agent.extension[extOtherId] ^slicing.rules = #open
-* agent.extension[extOtherId] contains 
-	npi 0..1 and
-	provider-id 0..1
-* agent.extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent.extension[extOtherId][provider-id].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who 1..1
 
 
 
-Instance: ex-SecondSliceProfile
+Instance: ex-WithNpiPrn
 InstanceOf: ThirdSliceProfile
-Title: "Audit Example of second profile to show the build validation error"
+Title: "Audit Example of third profile with validation error"
 Description: """
 Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)
 """
@@ -55,17 +56,19 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
-* agent[user].extension[extOtherId][+].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[extOtherId][=].valueIdentifier.value = "1234567@myNPIregistry.example.org"
-* agent[user].extension[extOtherId][+].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent[user].extension[extOtherId][=].valueIdentifier.value = "JohnD"
+* agent[user].extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[extOtherId][npi].valueIdentifier.value = "1234567@myNPIregistry.example.org"
+* agent[user].extension[extOtherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[extOtherId][prn].valueIdentifier.value = "JohnD"
 
 
-Instance: ex-ThirdSliceProfile
+Instance: ex-WithoutUsingThirdSlice
 InstanceOf: ThirdSliceProfile
-Title: "Audit Example of second profile to show the build validation error"
+Title: "Audit Example of third slice profile that does NOT have validation errors."
 Description: """
 Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)
+
+This example does not have data in the third depth slice, so it does not throw a validation error.
 """
 * meta.security = http://terminology.hl7.org/CodeSystem/v3-ActReason#HTEST
 * type = http://dicom.nema.org/resources/ontology/DCM#110100 "Application Activity"
@@ -80,6 +83,7 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
+* agent[user].extension[extOtherId].valueIdentifier.value = "Hello World"
 
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who.display = "St. Mary of Examples"
