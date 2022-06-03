@@ -17,9 +17,15 @@ Description: "Extension to be used within otherId to carry the name of the ident
 
 Profile: ThirdSliceProfile
 Parent: AuditEvent
-Title: "Profile defines one slice on .agent for user"
+Title: "Slicing a Sliced Extension Profile"
 Description: """
-Simple profile to set the stage
+Profile showing problems with slicing a sliced extension
+ 
+- adds an extension *otherId* on .agent
+  - a slice on the *otherId* extension for *npi* and *prn*
+  - adds an extension on the *prn* slice for *otherIdName*
+- a slice on .agent for for *user*
+- a slice on .agent for *userorg*
 """
 * agent.extension contains OtherId named otherId 0..* MS
 * agent.extension[otherId] ^slicing.discriminator.type = #pattern
@@ -74,9 +80,11 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 
 Instance: ex-WithNpiPrnName
 InstanceOf: ThirdSliceProfile
-Title: "Audit Example of third profile with validation error"
+Title: "Audit Example of third profile with validation error *"
 Description: """
 Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)
+
+Note this also has the additional extension for *otherIdName*
 """
 * meta.security = http://terminology.hl7.org/CodeSystem/v3-ActReason#HTEST
 * type = http://dicom.nema.org/resources/ontology/DCM#110100 "Application Activity"
