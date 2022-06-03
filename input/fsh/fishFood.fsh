@@ -7,21 +7,31 @@ Description: "Carries other identifiers that are known for an agent."
 * value[x] only Identifier
 * valueIdentifier 1..1
 
+
+Extension: OtherIdName
+Title: "AuditEvent.agent other identifiers name"
+Description: "Extension to be used within otherId to carry the name of the identifier."
+* value[x] only string
+* valueString 1..1
+
+
 Profile: ThirdSliceProfile
 Parent: AuditEvent
 Title: "Profile defines one slice on .agent for user"
 Description: """
 Simple profile to set the stage
 """
-* agent.extension contains OtherId named extOtherId 0..* MS
-* agent.extension[extOtherId] ^slicing.discriminator.type = #pattern
-* agent.extension[extOtherId] ^slicing.discriminator.path = "value.type"
-* agent.extension[extOtherId] ^slicing.rules = #open
-* agent.extension[extOtherId] contains 
+* agent.extension contains OtherId named otherId 0..* MS
+* agent.extension[otherId] ^slicing.discriminator.type = #pattern
+* agent.extension[otherId] ^slicing.discriminator.path = "value.type"
+* agent.extension[otherId] ^slicing.rules = #open
+* agent.extension[otherId] contains 
 	npi 0..1 and
 	prn 0..1
-* agent.extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent.extension[extOtherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent.extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent.extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent.extension[otherId][prn].valueIdentifier.extension contains OtherIdName named otherIdName 0..1 MS
+* agent.extension[otherId][prn].valueIdentifier.extension[otherIdName] ^short = "name for this id"
 
 * agent ^slicing.discriminator.type = #pattern
 * agent ^slicing.discriminator.path = "type"
@@ -56,10 +66,36 @@ Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/st
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
-* agent[user].extension[extOtherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent[user].extension[extOtherId][npi].valueIdentifier.value = "1234567@myNPIregistry.example.org"
-* agent[user].extension[extOtherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent[user].extension[extOtherId][prn].valueIdentifier.value = "JohnD"
+* agent[user].extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[otherId][npi].valueIdentifier.value = "1234567@myNPIregistry.example.org"
+* agent[user].extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[otherId][prn].valueIdentifier.value = "JohnD"
+
+
+Instance: ex-WithNpiPrnName
+InstanceOf: ThirdSliceProfile
+Title: "Audit Example of third profile with validation error"
+Description: """
+Example causes validation to fail. [Zulip chat](https://chat.fhir.org/#narrow/stream/215610-shorthand/topic/slicing.20an.20extension.20on.20a.20slice)
+"""
+* meta.security = http://terminology.hl7.org/CodeSystem/v3-ActReason#HTEST
+* type = http://dicom.nema.org/resources/ontology/DCM#110100 "Application Activity"
+* action = #R
+* subtype = urn:ietf:rfc:1438#poke "Boredom poke"
+* recorded = 2021-12-03T09:49:00.000Z
+* outcome = http://terminology.hl7.org/CodeSystem/audit-event-outcome#0 "Success"
+* source.site = "server.example.com"
+* source.observer.display = "my server"
+* source.type = http://terminology.hl7.org/CodeSystem/security-source-type#4 "Application Server"
+* agent[user].type.coding = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
+* agent[user].who.identifier.value = "05086900124"
+* agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
+* agent[user].requestor = true
+* agent[user].extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[otherId][npi].valueIdentifier.value = "1234567@myNPIregistry.example.org"
+* agent[user].extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[otherId][prn].valueIdentifier.value = "JohnD"
+* agent[user].extension[otherId][prn].valueIdentifier.extension[otherIdName].valueString = "John D"
 
 
 Instance: ex-WithoutUsingThirdSlice
@@ -83,7 +119,7 @@ This example does not have data in the third depth slice, so it does not throw a
 * agent[user].who.identifier.value = "05086900124"
 * agent[user].who.identifier.system = "https://sts.sykehuspartner.no"
 * agent[user].requestor = true
-* agent[user].extension[extOtherId].valueIdentifier.value = "Hello World"
+* agent[user].extension[otherId].valueIdentifier.value = "Hello World"
 
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who.display = "St. Mary of Examples"

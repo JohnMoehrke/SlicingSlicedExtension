@@ -1,7 +1,7 @@
 # testBundle
 
 
-This creates a profile of [AuditEvent that slices .agent, adds extOtherId extension, and slices extOtherId](StructureDefinition-ThirdProfile.html) 
+This creates a profile of [AuditEvent that slices .agent, adds extOtherId extension, and slices extOtherId](StructureDefinition-ThirdSliceProfile.html) 
 
 1. I need to slice the AuditEvent.agent as there are multiple kinds of agent the profile is defining, so want to identify a slice for the (user) agent.
 2. In that slice for describing the user, I have more identifiers to record than the AuditEvent.agent supports. so I add an extension (extOtherIds)
