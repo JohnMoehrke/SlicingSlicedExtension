@@ -7,6 +7,7 @@ This creates a profile of [AuditEvent that slices .agent, adds extOtherId extens
 1. I need to slice the AuditEvent.agent as there are multiple kinds of agent the profile is defining, so want to identify a slice for the (user) agent.
 2. In that slice for describing the user, I have more identifiers to record than the AuditEvent.agent supports. so I add an extension (extOtherIds)
 3. In that extension that allows me to record more identifiers, I have a some flavors of identifier that I also want to define (npi, and prn)
+4. In that extension I have another extension to add a name to the given identifier in the given slice in the given agent
 
 Example causes validation to fail. 
 
