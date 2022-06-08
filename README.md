@@ -15,4 +15,3 @@ Example causes validation to fail.
 - [IG Creation zulip chat](https://chat.fhir.org/#narrow/stream/179252-IG-creation/topic/slicing.20sliced.20extension)
 
 
-.
