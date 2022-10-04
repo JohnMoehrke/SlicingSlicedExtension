@@ -10,7 +10,7 @@ version: 0.1.1-current
 fhirVersion: 4.0.1
 copyrightYear: 2022+
 releaseLabel: ci-build
-jurisdiction: urn:iso:std:iso:3166#UA
+jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#001'
 license: CC-BY-SA-4.0
 description: "Showing a slicing of extension in a slice problem."
 title: "Slicing sliced extension"

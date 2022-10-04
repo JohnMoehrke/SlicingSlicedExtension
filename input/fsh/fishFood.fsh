@@ -28,16 +28,16 @@ Profile showing problems with slicing a sliced extension
 - a slice on .agent for *userorg*
 """
 * agent.extension contains OtherId named otherId 0..* MS
-* agent.extension[otherId] ^slicing.discriminator.type = #pattern
-* agent.extension[otherId] ^slicing.discriminator.path = "value.type"
+* agent.extension[otherId] ^slicing.discriminator.type = #value
+* agent.extension[otherId] ^slicing.discriminator.path = "valueIdentifier.type"
 * agent.extension[otherId] ^slicing.rules = #open
 * agent.extension[otherId] contains 
 	npi 0..1 and
 	prn 0..1
 * agent.extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
 * agent.extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent.extension[otherId][prn].valueIdentifier.extension contains OtherIdName named otherIdName 0..1 MS
-* agent.extension[otherId][prn].valueIdentifier.extension[otherIdName] ^short = "name for this id"
+//* agent.extension[otherId][prn].valueIdentifier.extension contains OtherIdName named otherIdName 0..1 MS
+//* agent.extension[otherId][prn].valueIdentifier.extension[otherIdName] ^short = "name for this id"
 
 * agent ^slicing.discriminator.type = #pattern
 * agent ^slicing.discriminator.path = "type"
