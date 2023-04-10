@@ -33,7 +33,7 @@ Profile showing problems with slicing a sliced extension
 """
 * agent.extension contains OtherId named otherId 0..* MS
 * agent.extension[otherId] ^slicing.discriminator.type = #value
-* agent.extension[otherId] ^slicing.discriminator.path = "valueIdentifier.type"
+* agent.extension[otherId] ^slicing.discriminator.path =  "extension('http://johnmoehrke.github.io/StructureDefinition/ihe-otherId').value.type"
 * agent.extension[otherId] ^slicing.rules = #open
 * agent.extension[otherId] contains npi 0..1 
 * agent.extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
