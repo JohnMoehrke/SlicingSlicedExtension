@@ -13,8 +13,8 @@ Description: "Carries other identifiers that are known for an agent."
 Extension: OtherIdName
 Title: "AuditEvent.agent other identifiers name"
 Description: "Extension to be used within otherId to carry the name of the identifier."
-* ^context[+].type = #element
-* ^context[=].expression = "AuditEvent.agent"
+//* ^context[+].type = #element
+//* ^context[=].expression = "Identifier"
 * value[x] only string
 * valueString 1..1
 
@@ -32,27 +32,33 @@ Profile showing problems with slicing a sliced extension
 - a slice on .agent for *userorg*
 """
 * agent.extension contains OtherId named otherId 0..* MS
-* agent.extension[otherId] ^slicing.discriminator.type = #value
-* agent.extension[otherId] ^slicing.discriminator.path =  "extension('http://johnmoehrke.github.io/StructureDefinition/ihe-otherId').value.type"
-* agent.extension[otherId] ^slicing.rules = #open
-* agent.extension[otherId] contains npi 0..1 
-* agent.extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
-* agent.extension[otherId] contains prn 0..1
-* agent.extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
-* agent.extension[otherId][prn].valueIdentifier.extension contains OtherIdName named otherIdName 0..1 MS
-* agent.extension[otherId][prn].valueIdentifier.extension[otherIdName] ^short = "name for this id"
-
 * agent ^slicing.discriminator.type = #pattern
 * agent ^slicing.discriminator.path = "type"
 * agent ^slicing.rules = #open
-* agent contains 
-    user 1.. and
-    userorg 0..
-* agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP "information recipient"
+* agent contains user 1..*
+* agent[user].type = http://terminology.hl7.org/CodeSystem/v3-ParticipationType#IRCP
 * agent[user].who 1..1 
-
-* agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
+* agent[user].purposeOfUse MS
+* agent[user].media 0..0
+/*
+* agent contains userorg 0..*
+* agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV
 * agent[userorg].who 1..1
+* agent[userorg].purposeOfUse MS
+* agent[userorg].media 0..0
+*/
+
+* agent[user].extension ^slicing.discriminator[1].type = #value
+* agent[user].extension ^slicing.discriminator[=].path = "value.ofType(Identifier).type"
+* agent[user].extension ^slicing.rules = #open
+* agent[user].extension[otherId] contains npi 0..1 
+* agent[user].extension[otherId][npi].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#NPI
+* agent[user].extension[otherId] contains prn 0..1
+* agent[user].extension[otherId][prn].valueIdentifier.type = http://terminology.hl7.org/CodeSystem/v2-0203#PRN
+* agent[user].extension[otherId][prn].valueIdentifier.extension contains OtherIdName named otherIdName 0..1 MS
+* agent[user].extension[otherId][prn].valueIdentifier.extension[otherIdName] ^short = "name for this id"
+
+
 
 
 
@@ -132,10 +138,11 @@ This example does not have data in the third depth slice, so it does not throw a
 * agent[user].requestor = true
 * agent[user].extension[otherId].valueIdentifier.value = "Hello World"
 
+/*
 * agent[userorg].type = http://terminology.hl7.org/CodeSystem/v3-RoleClass#PROV "healthcare provider"
 * agent[userorg].who.display = "St. Mary of Examples"
 * agent[userorg].requestor = false
-
+*/
 
 
 Instance:   ex-patient

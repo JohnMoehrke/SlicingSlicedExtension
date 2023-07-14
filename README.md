@@ -1,5 +1,7 @@
 # test-SlicingSlicedExtension
 
+The otherId problem has been solved. The adding otherIdName to otherId is still open. (2023-07-14)
+
 [ci-build](http://build.fhir.org/ig/JohnMoehrke/SlicingSlicedExtension/branches/main/index.html)
 
 This creates a profile of [AuditEvent that slices .agent, adds extOtherId extension, and slices extOtherId](StructureDefinition-ThirdProfile.html) 
