@@ -1,5 +1,7 @@
 # test-SlicingSlicedExtension
 
+2026-07-09 - not sure I care to continue this bug as it is outside anything I am doing rigth now. It is not clear anymore what the original intention was. So I am unclear what more needs to be defined or explained for a bug to be fixed.
+
 The otherId problem has been solved. The adding otherIdName to otherId is still open. (2023-07-14)
 
 [ci-build](http://build.fhir.org/ig/JohnMoehrke/SlicingSlicedExtension/branches/main/index.html)
